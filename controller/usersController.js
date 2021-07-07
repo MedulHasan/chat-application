@@ -14,37 +14,37 @@ const getUsersController = async (req, res, next) => {
     }
 }
 
-const addUser = async (req, res, next) => {
-    const hashPassword = await bcrypt.hash(req.body.password, 11);
-    let newUser;
-    if (req.files && req.files.length > 0) {
-        newUser = new User({
-            ...req.body,
-            password: hashPassword,
-            avatar: req.files[0].filename
-        })
-    } else {
-        newUser = new User({
-            ...req.body,
-            password: hashPassword,
-        })
-    }
+// const addUser = async (req, res, next) => {
+//     const hashPassword = await bcrypt.hash(req.body.password, 11);
+//     let newUser;
+//     if (req.files && req.files.length > 0) {
+//         newUser = new User({
+//             ...req.body,
+//             password: hashPassword,
+//             avatar: req.files[0].filename
+//         })
+//     } else {
+//         newUser = new User({
+//             ...req.body,
+//             password: hashPassword,
+//         })
+//     }
 
-    try {
-        const result = await newUser.save()
-        res.status(200).json({
-            message: 'User added successfully'
-        })
-    } catch (err) {
-        res.status(500).json({
-            errors: {
-                common: {
-                    msg: 'Unknown error occured'
-                }
-            }
-        })
-    }
-}
+//     try {
+//         const result = await newUser.save()
+//         res.status(200).json({
+//             message: 'User added successfully'
+//         })
+//     } catch (err) {
+//         res.status(500).json({
+//             errors: {
+//                 common: {
+//                     msg: 'Unknown error occured'
+//                 }
+//             }
+//         })
+//     }
+// }
 
 const removeUser = async (req, res, next) => {
     let deleteId = req.params.id
@@ -75,6 +75,6 @@ const removeUser = async (req, res, next) => {
 
 module.exports = {
     getUsersController,
-    addUser,
+    // addUser,
     removeUser
 }

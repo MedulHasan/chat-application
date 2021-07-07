@@ -12,6 +12,16 @@ const {
 } = require('../middlewares/login/loginValidator')
 const { redirectLoggedIn } = require('../middlewares/common/checkLogin')
 
+
+const {
+    addUser,
+} = require('../controller/loginController')
+const avatarUpload = require('../middlewares/users/avatarUpload')
+const {
+    addUserValidators,
+    addUserValidationHandler
+} = require('../middlewares/users/userValidator')
+
 const page_title = 'Login'
 
 router.get(
@@ -27,6 +37,15 @@ router.post(
     doLoginValidator,
     doLoginValidationHandler,
     loginPostController
+)
+
+router.post(
+    '/signup',
+    // checkLogin,
+    avatarUpload,
+    addUserValidators,
+    addUserValidationHandler,
+    addUser
 )
 
 router.delete('/', logoutController)

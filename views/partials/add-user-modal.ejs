@@ -1,13 +1,13 @@
 <div class="modal-wrapper" id="add-user-modal">
     <div class="modal">
-      <a href="#" onclick="closeModal()" class="modal-close">+</a>
+      <a href="/" onclick="closeModal()" class="modal-close">+</a>
       <div class="modal-title">
         <h2>Create New User</h2>
       </div>
       <div class="modal-body">
         <form 
         method="POST"
-        action="/users"
+        action="/"
         enctype="multipart/form-data"
         id="add-user-form"
         >
@@ -40,8 +40,8 @@
 
 
   <script>
-    const modal = document.querySelector("#add-user-modal");
-    const form = document.querySelector("#add-user-form");
+    const usermodal = document.querySelector("#add-user-modal");
+    const userform = document.querySelector("#add-user-form");
 
     const successToast = Toastify({
         text: "User was added successfully!",
@@ -49,14 +49,14 @@
     });
 
     function closeModal() {
-      modal.style.display = "none";
+      usermodal.style.display = "none";
     }
     function openModal() {
-      modal.style.display = "block";
+      usermodal.style.display = "block";
     }
 
 
-    form.onsubmit = async function(event) {
+    userform.onsubmit = async function(event) {
         event.preventDefault();
 
 
@@ -72,9 +72,8 @@
             }
         }
 
-        const formData = new FormData(event.target);
-
-        let response = await fetch("/users", {
+        const formData = new FormData(userform);
+        let response = await fetch("/signup", {
             method: "POST",
             body: formData
         });
@@ -84,7 +83,7 @@
 
         if(result.errors) {
             Object.keys(result.errors).forEach((fieldName) => {
-              form[fieldName].classList.add('error');
+              userform[fieldName].classList.add('error');
 
               const errorPlaceholder = document.querySelector(`.${fieldName}-error`);
               errorPlaceholder.textContent = result.errors[fieldName].msg;
@@ -98,7 +97,7 @@
 
             setTimeout(() => {
                 location.reload();
-            }, 100);
+            }, 10000);
         }
     }
   </script>

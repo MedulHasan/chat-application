@@ -11,6 +11,7 @@ const doLoginValidator = [
 const doLoginValidationHandler = (req, res, next) => {
     let errors = validationResult(req);
     let errorMapping = errors.mapped();
+    // console.log(errorMapping);
 
     if (Object.keys(errorMapping).length === 0) {
         next()
